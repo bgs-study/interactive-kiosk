@@ -36,6 +36,10 @@ class Menu extends JFrame{
 		title.setFont(new Font("Dailog", Font.BOLD, 50)); //글자 폰트, 크기
 		p_north.add(title);
 		
+		
+		//
+		
+		
 		//주문하기, 취소하기 버튼 ----------------------------------------
 		
 		JButton order_btn = new JButton("주문하기");
