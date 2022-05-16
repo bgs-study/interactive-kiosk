@@ -23,15 +23,16 @@ class Menu extends JFrame{
 	private JLabel num[] = new JLabel[nameLabels.length];
 	public int i;
 	
-	
-	private void addListner() {
+	// 수량 증가/감소  ----------------------------------------------
+	private void addListner(JButton btn_plus,JButton btn_minus,int index) {
 		
 		ActionListener listener = new ActionListener() {	
-			
+
 			public void actionPerformed(ActionEvent e) {				
-				if(btn_plus.equals()) {		
+				if(e.getSource()== btn_plus) {		
 					
-					String strNum = num[i].getText();
+					
+					String strNum = num[index].getText();
                     // 숫자를 증가시키기 위해서 문자형태인 strNum을
                     // 정수 형태로 변환시킵니다.
                     int count = Integer.parseInt(strNum);
@@ -40,29 +41,35 @@ class Menu extends JFrame{
                     // JLabel에 들어가는 파라미터값은 String이기 때문에
                     // int 형태인 num을 String의 형태로 변환합니다.
                     strNum = String.valueOf(count);
-                    num[i].setText(strNum);
-                    System.out.println(num[i].getText());
+                    num[index].setText(strNum);
+                    System.out.println(num[index].getText());
 				}
 				
-				else if(btn_minus.equals()){						
-					 String strNum = num[i].getText();
-	                    int count = Integer.parseInt(strNum);
-	                    count--;
-	                    strNum = String.valueOf(count);
-	                    num[i].setText(strNum);
-	                    System.out.println(num[i].getText());
+				else if(e.getSource()== btn_minus){			
+					
+					String strNum = num[index].getText();
+					int count = Integer.parseInt(strNum);
+					 
+					if(count > 0) {
+						count--;
+						 strNum = String.valueOf(count);
+						num[index].setText(strNum);
+					}
+					 
+					else {
+						num[index].setText("0");
+					}
+//					 System.out.println(num[index].getText());
+	                    
 				}
-				
 			}
 		};
-		btn_plus[i].addActionListener(listener);
-		btn_minus[i].addActionListener(listener);
+		btn_plus.addActionListener(listener);
+		btn_minus.addActionListener(listener);
 	}
 	
 	
 	public Menu() {	//생성자
-		
-		
 		
 		setTitle("메뉴창");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 창 닫으면 프로그램 종료
@@ -138,9 +145,6 @@ class Menu extends JFrame{
 		JPanel menu6 =new JPanel(new GridLayout(3,0));
 
 
-		
-		
-
 		for( i=0; i<imgLabels.length; i++) { 
 			ImageIcon icon = new ImageIcon("./images/img/burger"+(i+1)+".png"); 
 			icon = new ImageIcon(icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)); 
@@ -156,11 +160,9 @@ class Menu extends JFrame{
 			num[i] = new JLabel ("0",JLabel.CENTER);
 			num[i].setText("0");			
 			
-			//addListner();
-
+			addListner(btn_plus[i],btn_minus[i],i);
 		}
 
-		
 		
 		menu_num1.add(btn_minus[0]);
 		menu_num1.add(num[0]);			
@@ -209,7 +211,6 @@ class Menu extends JFrame{
 		menu6.add(imgLabels[5]);
 		menu6.add(nameLabels[5]);
 		menu6.add(menu_num6);
-
 
 
 		p_background.add(menu1);
