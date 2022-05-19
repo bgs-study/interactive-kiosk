@@ -7,8 +7,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -27,7 +25,6 @@ class Menu extends JFrame{
 	private JPanel p_background;
 	private JPanel p_north;
 	private JPanel p_south;
-	
 	
 	
 	public Menu() {	//»ý¼ºÀÚ		
@@ -182,7 +179,7 @@ class Menu extends JFrame{
 
 
 		for(int i=0; i<imgLabels.length; i++) { 
-			ImageIcon icon = new ImageIcon("./images/img/burger"+(i+1)+".png"); 
+			ImageIcon icon = new ImageIcon("./images/img/"+i+".png"); 
 			icon = new ImageIcon(icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)); 
 			imgLabels[i] = new JLabel(icon);
 			
