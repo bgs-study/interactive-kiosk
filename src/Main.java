@@ -207,8 +207,33 @@ class Menu extends JFrame{
 			num[i].setText("0");			
 			
 			menu_listener(btn_plus[i],btn_minus[i],i);
+			
+		
 		}
 
+		//-------------
+		
+		menu_num1.setBackground(Color.white);
+		menu1.setBackground(Color.white);
+		
+		menu_num2.setBackground(Color.white);
+		menu2.setBackground(Color.white);
+		
+		menu_num3.setBackground(Color.white);
+		menu3.setBackground(Color.white);
+		
+		menu_num4.setBackground(Color.white);
+		menu4.setBackground(Color.white);
+		
+		menu_num5.setBackground(Color.white);
+		menu5.setBackground(Color.white);
+		
+		menu_num6.setBackground(Color.white);
+		menu6.setBackground(Color.white);
+		
+		//-------------
+		
+		
 		
 		menu_num1.add(btn_minus[0]);
 		menu_num1.add(num[0]);			
