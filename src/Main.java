@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Vector;
 
 import javax.swing.*;
 
@@ -21,30 +22,63 @@ class Menu extends JFrame{
 	private JButton btn_plus[] = new JButton[nameLabels.length];
 	private JButton btn_minus[] = new JButton[nameLabels.length];
 	private JLabel num[] = new JLabel[nameLabels.length];
-	public int i;
+	protected Vector<Integer> order_list = new Vector<>();
 	
-	// 수량 증가/감소  ----------------------------------------------
-	private void addListner(JButton btn_plus,JButton btn_minus,int index) {
+	private JPanel p_background;
+	private JPanel p_north;
+	private JPanel p_south;
+	
+	
+	
+	public Menu() {	//생성자		
+		set_layout();
+		menu_order_dp();
+		setSize(600, 800);
+		setVisible(true);
+	}
+	
+	
+	//order_Dialog
+	private void btn_listener(JButton order_btn,JButton cancel_btn) {
+		
+		order_Dialog d = new order_Dialog();
+		
+		order_btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				d.setVisible(true); //결제 팝업창 열고
+			}
+		});
+		
+		cancel_btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
+	}
+	
+	// menu 수량 증가/감소  ----------------------------------------------
+	private void menu_listener(JButton btn_plus,JButton btn_minus,int index) {
 		
 		ActionListener listener = new ActionListener() {	
 
-			public void actionPerformed(ActionEvent e) {				
-				if(e.getSource()== btn_plus) {		
+			public void actionPerformed(ActionEvent e) {	
+				
+				//plus btn
+				if(e.getSource()== btn_plus) {	
 					
-					
+					// 증가시키기 위해 string ->int
 					String strNum = num[index].getText();
-                    // 숫자를 증가시키기 위해서 문자형태인 strNum을
-                    // 정수 형태로 변환시킵니다.
                     int count = Integer.parseInt(strNum);
-                    count++;
+                    count++;                    
                     
-                    // JLabel에 들어가는 파라미터값은 String이기 때문에
-                    // int 형태인 num을 String의 형태로 변환합니다.
+                    // int ->string
                     strNum = String.valueOf(count);
                     num[index].setText(strNum);
-                    System.out.println(num[index].getText());
+                    
+                    //System.out.println(num[index].getText());
 				}
 				
+				//minus btn
 				else if(e.getSource()== btn_minus){			
 					
 					String strNum = num[index].getText();
@@ -59,17 +93,18 @@ class Menu extends JFrame{
 					else {
 						num[index].setText("0");
 					}
-//					 System.out.println(num[index].getText());
-	                    
+					//System.out.println(num[index].getText());	              
 				}
 			}
 		};
+		
 		btn_plus.addActionListener(listener);
 		btn_minus.addActionListener(listener);
 	}
 	
 	
-	public Menu() {	//생성자
+	// set layout
+	public void set_layout() {
 		
 		setTitle("메뉴창");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 창 닫으면 프로그램 종료
@@ -79,19 +114,19 @@ class Menu extends JFrame{
 		//JPanner------------------------------------------------
 		
 		//BorderLayout.CENTER
-		JPanel p_background = new JPanel(new GridLayout(0,3));		
+		p_background = new JPanel(new GridLayout(0,3));		
 		JScrollPane p_center = new JScrollPane(p_background,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		p_background.setBackground(Color.white);
 		c.add(p_center,BorderLayout.CENTER);
 		
 		
 		//BorderLayout.NORTH
-		JPanel p_north = new JPanel(new FlowLayout());
+		p_north = new JPanel(new FlowLayout());
 		p_north.setBackground(new Color(255, 158, 60));
 		c.add(p_north,BorderLayout.NORTH);
 		
 		//BorderLayout.SOUTH
-		JPanel p_south = new JPanel(new FlowLayout());			
+		p_south = new JPanel(new FlowLayout());			
 		p_south.setBackground(new Color(255, 158, 60));		
 		c.add(p_south,BorderLayout.SOUTH);
 		
@@ -125,11 +160,12 @@ class Menu extends JFrame{
 		cancel_btn.setFont(new Font("Dialog", Font.BOLD, 40)); // 글자 폰트 및 크기
 		p_south.add(cancel_btn,BorderLayout.EAST);
 		
-		//--------------------------------------------------------
-		
-		
-		//Menu list ----------------------------------------------
-		
+		btn_listener(order_btn,cancel_btn);
+	}
+	
+	// menu display
+	public void menu_order_dp() {
+
 		JPanel menu_num1= new JPanel();
 		JPanel menu_num2= new JPanel();
 		JPanel menu_num3= new JPanel();
@@ -145,7 +181,7 @@ class Menu extends JFrame{
 		JPanel menu6 =new JPanel(new GridLayout(3,0));
 
 
-		for( i=0; i<imgLabels.length; i++) { 
+		for(int i=0; i<imgLabels.length; i++) { 
 			ImageIcon icon = new ImageIcon("./images/img/burger"+(i+1)+".png"); 
 			icon = new ImageIcon(icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)); 
 			imgLabels[i] = new JLabel(icon);
@@ -160,7 +196,7 @@ class Menu extends JFrame{
 			num[i] = new JLabel ("0",JLabel.CENTER);
 			num[i].setText("0");			
 			
-			addListner(btn_plus[i],btn_minus[i],i);
+			menu_listener(btn_plus[i],btn_minus[i],i);
 		}
 
 		
@@ -212,36 +248,14 @@ class Menu extends JFrame{
 		menu6.add(nameLabels[5]);
 		menu6.add(menu_num6);
 
-
 		p_background.add(menu1);
 		p_background.add(menu2);
 		p_background.add(menu3);
 		p_background.add(menu4);
 		p_background.add(menu5);
 		p_background.add(menu6);
+	}
 
-		
-		//이벤트, 결제 팝업창 다이어로그 생성-------------------------------------------
-		
-		order_Dialog d = new order_Dialog();
-		
-		order_btn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				d.setVisible(true); //결제 팝업창 열고
-			}
-		});
-		
-		cancel_btn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-			}
-		});
-	
-		// 프레임 크기 ----------------------------------------------
-		setSize(600, 800);
-		setVisible(true);
-					
-	}//Payment
 }//JFrame
 
 
