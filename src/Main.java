@@ -228,7 +228,6 @@ class Menu extends JFrame{
 		order_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				d.setVisible(true); //결제 팝업창 열고
-				setVisible(true); // 메뉴 창은 닫
 			}
 		});
 		
