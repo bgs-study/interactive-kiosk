@@ -182,7 +182,7 @@ class Menu extends JFrame{
 
 
 		for(int i=0; i<imgLabels.length; i++) { 
-			ImageIcon icon = new ImageIcon("./images/img/burger"+(i+1)+".png"); 
+			ImageIcon icon = new ImageIcon("./images/img/"+i+".png"); 
 			icon = new ImageIcon(icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)); 
 			imgLabels[i] = new JLabel(icon);
 			
