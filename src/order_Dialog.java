@@ -79,7 +79,7 @@ public class order_Dialog extends JDialog{
 				
 				
 				//img--------------------------------------------------
-				ImageIcon burger_icon = new ImageIcon("./images/img/burger4.png");
+				ImageIcon burger_icon = new ImageIcon("./images/img/0.png");
 				JLabel burger_label = new JLabel(burger_icon);
 				burger_label.setBounds(20, 135, 100, 117);
 				p_foreground.add(burger_label);
